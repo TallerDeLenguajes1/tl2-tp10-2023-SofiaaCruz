@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Tablero";
+}
+
+@model List<Tablero>
+
+<div class="tex-center">
+    <h1 class="display-4">Control Tableros</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Id Propietario</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Tablero t in Model)
+            {
+                <tr>
+                    <td>@t.Id</td>
+                    <td>@t.IdUsuarioPropietario</td>
+                    <td>@t.Nombre</td>
+                    <td>@t.Descripcion</td>
+                    <td><button class="btn btn-primary boton">
+                        <a asp-controller="Tablero" asp-action="Update" asp-route-id ="@t.Id" class="badge badge-primary">Modificar</a>
+                    </button></td>
+                    <td><button class="btn btn-primary boton">
+                        <a asp-controller="Tablero" asp-action="Delete" asp-route-id ="@t.Id" class="badge badge-primary">Eliminar</a>
+                    </button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <a asp-controller="Tablero" asp-action="Create">
+            <button class="btn btn-primary boton" type="button">Crear Tablero</button>
+        </a>
+    </div>
+</div>

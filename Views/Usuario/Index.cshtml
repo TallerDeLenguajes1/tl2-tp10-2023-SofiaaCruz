@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Usuario";
+}
+@model List<Usuario>
+
+<div class="text-center">
+    <h1 class="display-4">Control de Usuarios</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Usuario u in Model)
+            {
+                <tr>
+                    <td>@u.Id</td>
+                    <td>@u.NombreUsuario</td>
+                    <td><button class="btn btn-primary boton">
+                        <a asp-controller="Usuario" asp-action="Update" asp-route-id ="@u.Id" class="badge badge-primary">Modificar</a>
+                    </button></td>
+                    <td><button class="btn btn-primary boton">
+                        <a asp-controller="Usuario" asp-action="Delete" asp-route-id ="@u.Id" class="badge badge-primary">Eliminar</a>
+                    </button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <a asp-controller="Usuario" asp-action="Create">
+            <button class="btn btn-primary boton" type="button">Crear
+                Usuario</button></a>
+    </div>
+</div>

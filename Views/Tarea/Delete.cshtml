@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Eliminar Tarea";
+}
+
+@model Tarea
+<form asp-controller="Tarea" asp-action="DeleteConfirmed" method="post">
+    <input hidden asp-for="@Model.Id">
+    <p>¿Está seguro de Eliminar la tarea '@Model.Nombre'?</p>
+    <div>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-controller="Tarea" asp-action="Index" class="btn btn-secondary boton">Cancelar</a>
+    </div>
+</form>

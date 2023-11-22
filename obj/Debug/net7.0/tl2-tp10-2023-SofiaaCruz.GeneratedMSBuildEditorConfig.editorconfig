@@ -1,0 +1,85 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = tl2_tp10_2023_SofiaaCruz
+build_property.RootNamespace = tl2_tp10_2023_SofiaaCruz
+build_property.ProjectDir = C:\Users\sofia\OneDrive\Escritorio\Facultad\Tercer año\2° Cuatrimestre\Taller de lenguaje II\TP10\tl2-tp10-2023-SofiaaCruz\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\sofia\OneDrive\Escritorio\Facultad\Tercer año\2° Cuatrimestre\Taller de lenguaje II\TP10\tl2-tp10-2023-SofiaaCruz
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Tablero/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Tablero/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Tablero/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Tablero/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xVcGRhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Tarea/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Tarea/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Tarea/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Tarea/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Usuario/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Usuario/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Usuario/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Usuario/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xVcGRhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sofia/OneDrive/Escritorio/Facultad/Tercer año/2° Cuatrimestre/Taller de lenguaje II/TP10/tl2-tp10-2023-SofiaaCruz/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-o1u06mq2mw

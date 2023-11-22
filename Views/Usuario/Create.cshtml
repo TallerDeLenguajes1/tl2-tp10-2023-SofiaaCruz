@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Usuario";
+}
+@model Usuario
+
+<h1>@ViewData["Title"]</h1>
+<form asp-controller="Usuario" asp-action="Create" method="post">
+    <div class="from-grooup">
+        <label for="NombreUsuario">Nombre de Usuario</label>
+        <input asp-for="@Model.NombreUsuario" class="form-control" id="NombreUsuario">
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary boton">Enviar</button>
+    </div>
+</form>
