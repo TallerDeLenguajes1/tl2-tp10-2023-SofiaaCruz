@@ -1,7 +1,7 @@
 using System.Data.SQLite;
 using EspacioIUsuarioRepository;
 using tl2_tp10_2023_SofiaaCruz.Models; //no olvidar
-
+using tl2_tp10_2023_SofiaaCruz.ViewModels;
 public class UsuarioRepository : IUsuarioRepository
 {
    private string CadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared"; //Cadena de conexión a la base de datos
@@ -70,7 +70,9 @@ public class UsuarioRepository : IUsuarioRepository
                             var usuario = new Usuario
                             {
                                 Id = Convert.ToInt32(reader["id"]),
-                                NombreUsuario = reader["nombre_de_usuario"].ToString()
+                                NombreUsuario = reader["nombre_de_usuario"].ToString(),
+                                Rol = (Roles)Convert.ToInt32(reader["rol"]),
+                                Password = reader["password"].ToString()
                             };
                             listUsuarios.Add(usuario);
                         }
