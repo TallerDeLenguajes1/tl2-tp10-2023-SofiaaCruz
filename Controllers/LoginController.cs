@@ -29,7 +29,7 @@ public class LoginController : Controller
     public IActionResult Login(LoginViewModel usuario)
     {
         var usuarioLog = usuarioRepository.GetAll().FirstOrDefault(u => u.NombreUsuario == usuario.NombreUsuario && u.Password == usuario.Password);
-        if(usuarioLog == null) return BadRequest("La página que estás buscando no existe.");
+        if(usuarioLog == null) return RedirectToAction("Index");
         logearUsuario(usuarioLog);
         return RedirectToRoute(new {controller = "Usuario", action = "Index"});
     }
@@ -39,7 +39,7 @@ public class LoginController : Controller
         HttpContext.Session.SetString("id", usuario.Id.ToString());
         HttpContext.Session.SetString("NombreUsuario",usuario.NombreUsuario);
         HttpContext.Session.SetString("Password",usuario.Password);
-        HttpContext.Session.SetString("NombreUsuario",usuario.Rol.ToString());
+        HttpContext.Session.SetString("Rol",usuario.Rol.ToString());
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

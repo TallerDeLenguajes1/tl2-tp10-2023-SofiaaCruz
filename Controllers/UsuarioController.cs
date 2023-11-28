@@ -2,6 +2,7 @@ using System.Diagnostics;
 using EspacioIUsuarioRepository;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_SofiaaCruz.Models;
+using tl2_tp10_2023_SofiaaCruz.ViewModels;
 
 namespace tl2_tp10_2023_SofiaaCruz.Controllers;
 
@@ -21,54 +22,72 @@ public class UsuarioController : Controller
 
     public IActionResult Index()
     {
-        var usuarios = usuarioRepository.GetAll();
-        return View(usuarios);
+        if(IsLogin())
+        {
+            return View (new GetUsuarioViewModel(usuarioRepository.GetAll()));
+        }
+        return RedirectToRoute(new {Controller = "login", Action = "index"});
     }
 
     [HttpGet]
     public IActionResult Update(int id)
     {
-        var usuario = usuarioRepository.GetById(id);
-        return View(usuario);
+        if(!EsAdmin()) return RedirectToAction("Index"); 
+        return View(new UpdateUsuarioViewmodel(usuarioRepository.GetById(id)));
     }
     [HttpPost]
-    public IActionResult Update(int id, Usuario user)
+    public IActionResult Update(UpdateUsuarioViewmodel usuario)
     {
-        usuarioRepository.ModificarUsuario(id, user);
+        if(!ModelState.IsValid) return RedirectToAction("Index");
+        var UsuarioAModificar = usuarioRepository.GetAll().FirstOrDefault(u => u.Id == usuario.Id);
+        usuarioRepository.ModificarUsuario(UsuarioAModificar.Id, UsuarioAModificar);
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(int id)
     {
-        var usuario = usuarioRepository.GetById(id);
-        return View(usuario);
+        if(!EsAdmin()) return RedirectToAction("Index");
+        return View(new DeleteUsuarioViewModel(usuarioRepository.GetById(id)));
     }
-    public IActionResult DeleteConfirmed(int id)
+    public IActionResult DeleteConfirmed(DeleteUsuarioViewModel usuario)
     {
-        int result = usuarioRepository.Delete(id);
-
-        if (result > 0)
+        if(ModelState.IsValid)
         {
-            return RedirectToAction("Index");
+            var UsuarioAEliminar = usuarioRepository.GetAll().FirstOrDefault(u => u.Id == usuario.Id);
+            int result = usuarioRepository.Delete(UsuarioAEliminar.Id);
+            if(result == 0) BadRequest();
         }
-        else
-        {
-            return RedirectToAction("Error");
-        }
+        return RedirectToAction("Index");
     }
 
     [HttpGet]
     public IActionResult Create()
     {
-        return View(new Usuario());
+        if(!EsAdmin()) return RedirectToAction("Index");
+        return View(new CrearUsuarioViewModel());
     }
 
     [HttpPost]
-    public IActionResult Create(Usuario usuario)
+    public IActionResult Create(CrearUsuarioViewModel usuario)
     {
-        usuarioRepository.NuevoUsuario(usuario);
+        if(!ModelState.IsValid) return RedirectToAction("Index");
+        var nuevoUsuario = new Usuario()
+        {
+            NombreUsuario = usuario.NombreUsuario,
+            Rol = usuario.Rol,
+            Password = usuario.Password,
+            Id = usuario.Id
+        };
+        usuarioRepository.NuevoUsuario(nuevoUsuario);
         return RedirectToAction("Index");
     }
+
+     private bool EsAdmin()
+    {
+        if(HttpContext.Session != null && HttpContext.Session.GetString("Rol") == Enum.GetName(Roles.administrador)) return true;
+        return false;
+    } 
+     private bool IsLogin() => HttpContext.Session != null; 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -1,13 +1,26 @@
+@using tl2_tp10_2023_SofiaaCruz.ViewModels;
+
 @{
     ViewData["Title"] = "Usuario";
 }
-@model Usuario
+@model CrearUsuarioViewModel
 
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Usuario" asp-action="Create" method="post">
     <div class="from-grooup">
         <label for="NombreUsuario">Nombre de Usuario</label>
         <input asp-for="@Model.NombreUsuario" class="form-control" id="NombreUsuario">
+    </div>
+     <div>
+        <label for="Rol" class="form-label">Rol</label>
+            <select asp-for="@Model.Rol" class="form-control" id="Rol">
+                <option value="administrador"selected>Administrador</option>
+                <option value="operador" >Opetador</option>
+            </select>
+    </div>
+    <div class="from-grooup">
+        <label for="Password">Password</label>
+        <input asp-for="@Model.Password" class="form-control" id="Password">
     </div>
     <div>
         <button type="submit" class="btn btn-primary boton">Enviar</button>

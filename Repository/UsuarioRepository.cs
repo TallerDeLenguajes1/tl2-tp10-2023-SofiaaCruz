@@ -7,7 +7,7 @@ public class UsuarioRepository : IUsuarioRepository
    private string CadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared"; //Cadena de conexión a la base de datos
     public void NuevoUsuario(Usuario usuario)
     {
-        var query = "Insert Into Usuario (nombre_de_usuario) VALUES (@nombre_de_usuario)"; //Definición de la consulta SQL para insertar un nuevo usuario
+        var query = "Insert Into Usuario (nombre_de_usuario,rol, password) VALUES (@nombre_de_usuario, @rol, @password)"; //Definición de la consulta SQL para insertar un nuevo usuario
         using(SQLiteConnection connection = new SQLiteConnection(CadenaDeConexion)) //La clase SQLiteConnection de utiliza para establecer y gestionar la conexión con una BD SQLite especifica
         {
             try
@@ -16,6 +16,8 @@ public class UsuarioRepository : IUsuarioRepository
                 using (var command = new SQLiteCommand(query, connection)) //SQLiteCommand se utiliza ara especificar comando SQL
                 {
                     command.Parameters.Add(new SQLiteParameter("@nombre_de_usuario", usuario.NombreUsuario));
+                    command.Parameters.Add(new SQLiteParameter("@rol", usuario.Rol));
+                    command.Parameters.Add(new SQLiteParameter("@password", usuario.Password));
                     command.ExecuteNonQuery();
                 }
             }

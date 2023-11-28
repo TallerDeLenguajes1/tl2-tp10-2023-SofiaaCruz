@@ -1,7 +1,8 @@
+@using tl2_tp10_2023_SofiaaCruz.ViewModels;
 @{
     ViewData["Title"] = "Usuario";
 }
-@model List<Usuario>
+@model GetUsuarioViewModel
 
 <div class="text-center">
     <h1 class="display-4">Control de Usuarios</h1>
@@ -13,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(Usuario u in Model)
+            @foreach(Usuario u in Model.Usuarios)
             {
                 <tr>
                     <td>@u.Id</td>
