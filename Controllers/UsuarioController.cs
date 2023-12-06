@@ -40,7 +40,7 @@ public class UsuarioController : Controller
     [HttpPost]
     public IActionResult Update(UpdateUsuarioViewmodel usuario)
     {
-        if(!ModelState.IsValid) return RedirectToAction("Index");
+        if(!ModelState.IsValid) return RedirectToAction("Update");
         var UsuarioAModificar = usuarioRepository.GetAll().FirstOrDefault(u => u.Id == usuario.Id);
         if(UsuarioAModificar == null) return RedirectToAction("Index");
         UsuarioAModificar.NombreUsuario = usuario.NombreUsuario;
@@ -77,13 +77,12 @@ public class UsuarioController : Controller
     [HttpPost]
     public IActionResult Create(CrearUsuarioViewModel usuario)
     {
-        if(!ModelState.IsValid) return RedirectToAction("Index");
+        if(!ModelState.IsValid) return RedirectToAction("Create");
         var nuevoUsuario = new Usuario()
         {
             NombreUsuario = usuario.NombreUsuario,
             Rol = usuario.Rol,
             Password = usuario.Password,
-            Id = usuario.Id
         };
         usuarioRepository.NuevoUsuario(nuevoUsuario);
         return RedirectToAction("Index");

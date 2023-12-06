@@ -10,6 +10,7 @@
     <div class="from-grooup">
         <label for="NombreUsuario">Nombre de Usuario</label>
         <input asp-for="@Model.NombreUsuario" class="form-control" id="NombreUsuario">
+        <span asp-validation-for="@Model.NombreUsuario" class="text-danger"></span>
     </div>
      <div>
         <label for="Rol" class="form-label">Rol</label>
@@ -17,12 +18,17 @@
                 <option value="administrador"selected>Administrador</option>
                 <option value="operador" >Opetador</option>
             </select>
+        <span asp-validation-for="@Model.Rol" class="text-danger"></span>
+
     </div>
     <div class="from-grooup">
         <label for="Password">Password</label>
         <input asp-for="@Model.Password" class="form-control" id="Password">
+        <span asp-validation-for="@Model.Password" class="text-danger"></span>
     </div>
     <div>
         <button type="submit" class="btn btn-primary boton">Enviar</button>
     </div>
 </form>
+
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}

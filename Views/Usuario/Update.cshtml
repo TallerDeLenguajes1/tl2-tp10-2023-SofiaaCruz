@@ -11,12 +11,15 @@
     <div class="form-group">
         <label for="NombreUsuario">Nuevo nombre de usuario</label>
         <input asp-for="@Model.NombreUsuario" class="form-control" id="NombreUsuario">
+        <span asp-validation-for="@Model.NombreUsuario" class="text-danger"></span>
     </div>
     <div class="from-grooup">
         <label for="Password">Nueva contraseña</label>
         <input asp-for="@Model.Password" class="form-control" id="Password">
+        <span asp-validation-for="@Model.Password" class="text-danger"></span>
     </div>
     <div>
         <button type="submit" class="btn btn-primary">Modificar</button>
     </div>
 </form>
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}
