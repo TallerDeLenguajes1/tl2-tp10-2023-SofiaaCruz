@@ -1,8 +1,9 @@
+@using tl2_tp10_2023_SofiaaCruz.ViewModels;
 @{
     ViewData["Title"] = "Modificar Tarea";
 }
 
-@model Tarea
+@model UpdateTareaViewModel
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Tarea" asp-action="Update">
     <input hidden asp-for="@Model.Id">
@@ -27,10 +28,6 @@
     <div>
         <label for="Color">Nuevo color</label>
         <input asp-for="@Model.Color" class="form-control" id="Color">
-    </div>
-    <div>
-        <label for="UsuarioAsignado">Id de Usuario Asignado</label>
-        <input asp-for="@Model.IdUsuarioAsignado" class="form-control" id="UsuarioAsignado">
     </div>
     <button type="submit" class="btn btn-primary boton">Modificar</button>
 </form>

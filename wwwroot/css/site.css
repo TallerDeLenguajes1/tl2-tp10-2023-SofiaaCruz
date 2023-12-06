@@ -16,25 +16,48 @@ html {
   position: relative;
   min-height: 100%;
 }
+h1{
+  text-align: center;
+}
 
 body {
   margin-bottom: 60px;
+  align-items: center;
 }
 
 .boton{
-  background-color: #920ACD;
+  background-color: #000000;
   color:#ffff;
+  margin: 1vh;
 }
 
 .boton:hover{
-  background-color: #D27DF7;
-  color: #920ACD;
+  background-color: #C7C0C7;
+  color: #000000;
+  border-color: #C7C0C7;
 }
 
 a:hover{
-  color: #920ACD;
+  color: #000000;
 }
 a{
   color: #fff;
   text-decoration: none;
 } 
+.login{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #EEE9E9;
+  height: 100%;
+  align-items: center;
+  width: 30vw;
+  border-radius: 4vh;
+  padding: 4vh;
+}
+
+main{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

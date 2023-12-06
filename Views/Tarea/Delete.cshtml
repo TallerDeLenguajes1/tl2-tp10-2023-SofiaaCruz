@@ -1,8 +1,9 @@
+@using tl2_tp10_2023_SofiaaCruz.ViewModels;
 @{
     ViewData["Title"] = "Eliminar Tarea";
 }
 
-@model Tarea
+@model DeleteTareaViewModel
 <form asp-controller="Tarea" asp-action="DeleteConfirmed" method="post">
     <input hidden asp-for="@Model.Id">
     <p>¿Está seguro de Eliminar la tarea '@Model.Nombre'?</p>

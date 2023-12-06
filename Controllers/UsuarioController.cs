@@ -24,15 +24,17 @@ public class UsuarioController : Controller
     {
         if(IsLogin())
         {
+            ViewBag.Nombre = HttpContext.Session.GetString("NombreUsuario");
             return View (new GetUsuarioViewModel(usuarioRepository.GetAll()));
         }
-        return RedirectToRoute(new {Controller = "login", Action = "index"});
+        return RedirectToRoute(new {Controller = "login", Action = "Index"});
     }
 
     [HttpGet]
     public IActionResult Update(int id)
     {
-        if(!EsAdmin()) return RedirectToAction("Index"); 
+        var idUSuario = HttpContext.Session.GetString("Id");
+        if(!EsAdmin() && Convert.ToInt32(idUSuario) != id) return RedirectToAction("Index"); 
         return View(new UpdateUsuarioViewmodel(usuarioRepository.GetById(id)));
     }
     [HttpPost]
@@ -40,13 +42,18 @@ public class UsuarioController : Controller
     {
         if(!ModelState.IsValid) return RedirectToAction("Index");
         var UsuarioAModificar = usuarioRepository.GetAll().FirstOrDefault(u => u.Id == usuario.Id);
+        if(UsuarioAModificar == null) return RedirectToAction("Index");
+        UsuarioAModificar.NombreUsuario = usuario.NombreUsuario;
+        UsuarioAModificar.Password = usuario.Password;
+        Debug.WriteLine(UsuarioAModificar.Password);
         usuarioRepository.ModificarUsuario(UsuarioAModificar.Id, UsuarioAModificar);
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(int id)
     {
-        if(!EsAdmin()) return RedirectToAction("Index");
+        var idUSuario = HttpContext.Session.GetString("Id");
+        if(!EsAdmin() && Convert.ToInt32(idUSuario) != id) return RedirectToAction("Index");
         return View(new DeleteUsuarioViewModel(usuarioRepository.GetById(id)));
     }
     public IActionResult DeleteConfirmed(DeleteUsuarioViewModel usuario)
@@ -63,7 +70,7 @@ public class UsuarioController : Controller
     [HttpGet]
     public IActionResult Create()
     {
-        if(!EsAdmin()) return RedirectToAction("Index");
+        //if(!EsAdmin()) return RedirectToAction("Index");
         return View(new CrearUsuarioViewModel());
     }
 
@@ -82,12 +89,18 @@ public class UsuarioController : Controller
         return RedirectToAction("Index");
     }
 
-     private bool EsAdmin()
+    private bool EsAdmin()
     {
         if(HttpContext.Session != null && HttpContext.Session.GetString("Rol") == Enum.GetName(Roles.administrador)) return true;
         return false;
     } 
-     private bool IsLogin() => HttpContext.Session != null; 
+    private bool IsLogin()
+    {
+            if (HttpContext.Session.GetString("Id") != null) 
+                return true;
+                
+            return false;
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

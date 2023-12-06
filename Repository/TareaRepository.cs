@@ -230,14 +230,14 @@ public class TareaRepository : ITareaRepository
         {
             connection.Open();
             using SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = "UPDATE Tarea SET nombre = @nombre, estado = @estado, descripcion = @descripcion, color = @color, id_usuario_asignado = @idUsuario WHERE id = @id";
+            command.CommandText = "UPDATE Tarea SET nombre = @nombre, estado = @estado, descripcion = @descripcion, color = @color WHERE id = @id";
             command.Parameters.Add(new SQLiteParameter("@id", id));
             //command.Parameters.Add(new SQLiteParameter("@idTablero", tarea.IdTablero));
             command.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
             command.Parameters.Add(new SQLiteParameter("@estado", tarea.Estado));
             command.Parameters.Add(new SQLiteParameter("@descripcion", tarea.Descripcion));
             command.Parameters.Add(new SQLiteParameter("@color", tarea.Color));
-            command.Parameters.Add(new SQLiteParameter("@idUsuario", tarea.IdUsuarioAsignado));
+            //command.Parameters.Add(new SQLiteParameter("@idUsuario", tarea.IdUsuarioAsignado));
             command.ExecuteNonQuery();
         }
         catch(Exception ex)

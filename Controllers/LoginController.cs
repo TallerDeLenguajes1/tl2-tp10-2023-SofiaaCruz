@@ -36,7 +36,9 @@ public class LoginController : Controller
 
     private void logearUsuario(Usuario usuario)
     {
-        HttpContext.Session.SetString("id", usuario.Id.ToString());
+        HttpContext.Session.SetString("Id", usuario.Id.ToString());
+        var idUsuario = HttpContext.Session.GetString("Id");
+        //Debug.WriteLine($"Valor de IdUsuario en Sesión: {idUsuario}");
         HttpContext.Session.SetString("NombreUsuario",usuario.NombreUsuario);
         HttpContext.Session.SetString("Password",usuario.Password);
         HttpContext.Session.SetString("Rol",usuario.Rol.ToString());

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using EspacioITableroRepository;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_SofiaaCruz.Models;
+using tl2_tp10_2023_SofiaaCruz.ViewModels;
 
 namespace tl2_tp10_2023_SofiaaCruz.Controllers;
 
@@ -20,56 +21,95 @@ public class TableroController : Controller
 
     public IActionResult Index()
     {
-        var tableros = tableroRepository.GetAllTableros();
-        return View(tableros);
+        if(!IsLogin()) return RedirectToRoute (new {Controller = "Login", Action = "Index"});
+        if(EsAdmin())
+        {
+            return View(new GetTableroViewModel(tableroRepository.GetAllTableros()));
+        }
+        else
+        {
+            var idUSuario = HttpContext.Session.GetString("Id");
+            var tableros = tableroRepository.GetAllTablerosUsuario(Convert.ToInt32(idUSuario));
+            if(tableros != null && tableros.Any())
+            {
+                return View (new GetTableroViewModel(tableros));
+            } 
+            return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        }    
     }
 
     [HttpGet]
     public IActionResult Update(int id)
     {
-        var tablero = tableroRepository.GetById(id);
-        return View(tablero);
+        if(!EsAdmin()) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        return View(new UpdateTableroViewModel(tableroRepository.GetById(id)));
     }
 
     [HttpPost]
-    public IActionResult Update(int id, Tablero tablero)
+    public IActionResult Update(UpdateTableroViewModel tablero)
     {
-        tableroRepository.ModificarTablero(id, tablero);
+        if(!ModelState.IsValid) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        var tableroAModificar = tableroRepository.GetAllTableros().FirstOrDefault(t => t.Id == tablero.Id);
+        tableroAModificar.Nombre = tablero.Nombre;
+        tableroAModificar.Descripcion = tablero.Descripcion;
+        tableroRepository.ModificarTablero(tableroAModificar.Id, tableroAModificar);
         return RedirectToAction("Index");
     }
 
     public IActionResult Delete(int id)
     {
+        if(!EsAdmin()) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"}); 
         var tablero = tableroRepository.GetById(id);
-        return View(tablero);
+        return View(new DeleteTableroViewModel(tablero));
     }
 
-    public IActionResult DeleteConfirmed(int id)
+    public IActionResult DeleteConfirmed(DeleteTableroViewModel tablero)
     {
-        int result = tableroRepository.Delete(id);
-        if(result > 0)
+        if(ModelState.IsValid)
         {
-            return RedirectToAction("Index");
+            var tareaAEliminar = tableroRepository.GetAllTableros().FirstOrDefault(t => t.Id == tablero.Id);
+            int result = tableroRepository
+            .Delete(tareaAEliminar.Id);
+            if(result == 0) BadRequest();
         }
-        else
-        {
-            return RedirectToAction("Error");
-        }
+        return RedirectToRoute(new {Controller = "Usuario", Action = "Index"}); 
     }
 
     [HttpGet]
     public IActionResult Create()
     {
-        return View(new Tablero());
+        if(!EsAdmin()) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        return View(new CrearTableroViewModel());
     }
 
     [HttpPost]
-    public IActionResult Create(Tablero tablero)
+    public IActionResult Create(CrearTableroViewModel tablero)
     {
-        tableroRepository.CrearTablero(tablero);
-        return RedirectToAction("Index");
+        if(!ModelState.IsValid) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        var nuevoTablero = new Tablero()
+        {
+            Id = tablero.Id,
+            IdUsuarioPropietario = tablero.IdUsuarioPropietario,
+            Nombre = tablero.Nombre,
+            Descripcion = tablero.Descripcion
+        };
+        tableroRepository.CrearTablero(nuevoTablero);
+        return RedirectToRoute("Index");
     }
 
+    private bool EsAdmin()
+    {
+        if(HttpContext.Session != null && HttpContext.Session.GetString("Rol") == Enum.GetName(Roles.administrador)) return true;
+        return false;
+    }
+
+    private bool IsLogin()
+    {
+        if (HttpContext.Session.GetString("Id") != null) 
+            return true;
+            return false;
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

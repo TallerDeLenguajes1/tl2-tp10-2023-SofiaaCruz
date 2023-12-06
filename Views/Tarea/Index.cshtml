@@ -1,8 +1,9 @@
+@using tl2_tp10_2023_SofiaaCruz.ViewModels;
 @{
     ViewData["Title"] = "Tarea";
 }
 
-@model List<Tarea>
+@model GetTareasViewModel
 <div class="tex-center">
     <h1 class="display-4">Control Tareas</h1>
     <table class="table table-striped">
@@ -16,7 +17,7 @@
             <th scope="col">Id del usuario asignado</th>      
         </thead>
         <tbody>
-            @foreach(var t in Model)
+            @foreach(var t in Model.Tareas)
             {
                 <tr>
                     <td>@t.Id</td>

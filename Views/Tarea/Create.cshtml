@@ -1,8 +1,9 @@
+@using tl2_tp10_2023_SofiaaCruz.ViewModels;
 @{
     ViewData["Title"] = "Añadir Tarea";
 }
 
-@model Tarea
+@model CrearTareaViewModel
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Tarea" asp-action="Create">
     <input hidden asp-for="@Model.Id">
@@ -19,6 +20,10 @@
                 <option value="Review">Review</option>
                 <option value="Done">Done</option>
             </select>
+    </div>
+    <div>
+        <label for="IdTablero">Id tablero</label>
+        <input asp-for="@Model.IdTablero" class="form-control" id="IdTablero">
     </div>
     <div>
         <label for="Descripcion">Descripcion</label>

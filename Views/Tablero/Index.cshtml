@@ -1,8 +1,16 @@
+@using tl2_tp10_2023_SofiaaCruz.ViewModels;
+
 @{
     ViewData["Title"] = "Tablero";
 }
 
-@model List<Tablero>
+@if (TempData["Message"] != null)
+{
+<div class="alert alert-danger">
+    @TempData["Message"]
+</div>
+}
+@model GetTableroViewModel
 
 <div class="tex-center">
     <h1 class="display-4">Control Tableros</h1>
@@ -16,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(Tablero t in Model)
+            @foreach(Tablero t in Model.Tableros)
             {
                 <tr>
                     <td>@t.Id</td>

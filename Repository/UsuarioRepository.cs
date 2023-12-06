@@ -39,9 +39,11 @@ public class UsuarioRepository : IUsuarioRepository
             try{
                 connection.Open();
                 using SQLiteCommand command = connection.CreateCommand();
-                command.CommandText = "UPDATE Usuario SET nombre_de_usuario = @nombre WHERE id = @id";
+                command.CommandText = "UPDATE Usuario SET nombre_de_usuario = @nombre, password = @pass, rol = @rol WHERE id = @id";
                 command.Parameters.Add(new SQLiteParameter("@id", id));
                 command.Parameters.Add(new SQLiteParameter("@nombre", usuario.NombreUsuario));
+                command.Parameters.Add(new SQLiteParameter("@pass", usuario.Password));
+                command.Parameters.Add(new SQLiteParameter("@rol", usuario.Rol));
                 command.ExecuteNonQuery();
             }
             catch(Exception ex)
@@ -108,8 +110,10 @@ public class UsuarioRepository : IUsuarioRepository
                 {
                     while(reader.Read())
                     {
-                        usuario.Id = Convert.ToInt32(reader["id"]);
+                        usuario.Id = id;
                         usuario.NombreUsuario = reader["nombre_de_usuario"].ToString();
+                        usuario.Rol = (Roles)Convert.ToInt32(reader["rol"]);
+                        usuario.Password = reader["password"].ToString();
                     }
                 }
             }

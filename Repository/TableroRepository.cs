@@ -79,14 +79,15 @@ public class TableroRepository : ITableroRepository
                 connection.Open();
                 using SQLiteCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT * FROM Tablero WHERE id_usuario_propietario = @id";
-                command.Parameters.Add(new SqlParameter("@id", id));
+                command.Parameters.Add(new SQLiteParameter("@id", id));
                 using(SQLiteDataReader reader = command.ExecuteReader())
                 {
                     while(reader.Read())
                     {
                         var tablero = new Tablero
                         {
-                            IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]),
+                            Id = Convert.ToInt32(reader["id"]),
+                            IdUsuarioPropietario = id,
                             Nombre = reader["nombre"].ToString(),
                             Descripcion = reader["descripcion"].ToString()
                         };
@@ -148,9 +149,8 @@ public class TableroRepository : ITableroRepository
         {
             connection.Open();
             using SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = "UPDATE Tablero SET id = @id, nombre = @nombre, descripcion = @descripcion";
+            command.CommandText = "UPDATE Tablero SET nombre = @nombre, descripcion = @descripcion WHERE id = @id";
             command.Parameters.Add(new SQLiteParameter("@id", id));
-            //command.Parameters.Add(new SQLiteParameter("@idUsuario", tablero.IdUsuarioPropietario));
             command.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
             command.Parameters.Add(new SQLiteParameter("@descripcion", tablero.Descripcion));
             command.ExecuteNonQuery();

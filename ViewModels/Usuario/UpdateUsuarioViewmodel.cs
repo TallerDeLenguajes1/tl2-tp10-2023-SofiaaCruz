@@ -6,8 +6,10 @@ public class UpdateUsuarioViewmodel
 {
     public int Id {get; set;}
     public string NombreUsuario {get; set;}
-    public String Password {get; set;}
+    public string Password {get; set;}
     public Roles rol {get; set;}
+
+    public UpdateUsuarioViewmodel(){}
     public UpdateUsuarioViewmodel(Usuario usuario)
     {
         Id = usuario.Id;
