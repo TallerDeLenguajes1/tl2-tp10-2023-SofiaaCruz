@@ -13,10 +13,10 @@ public class UsuarioController : Controller
 
     private readonly IUsuarioRepository usuarioRepository;
 
-    public UsuarioController(ILogger<UsuarioController> logger)
+    public UsuarioController(ILogger<UsuarioController> logger, IUsuarioRepository usuarioRepository)
     {
         _logger = logger;
-        usuarioRepository = new UsuarioRepository();
+        this.usuarioRepository = usuarioRepository;
     }
 
 

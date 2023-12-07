@@ -1,7 +1,5 @@
 using System.Data.SQLite;
 using EspacioIUsuarioRepository;
-using tl2_tp10_2023_SofiaaCruz.Models; //no olvidar
-using tl2_tp10_2023_SofiaaCruz.ViewModels;
 public class UsuarioRepository : IUsuarioRepository
 {
    private string CadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared"; //Cadena de conexión a la base de datos

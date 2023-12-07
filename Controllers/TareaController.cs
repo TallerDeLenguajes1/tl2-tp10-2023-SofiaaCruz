@@ -8,15 +8,14 @@ namespace tl2_tp10_2023_SofiaaCruz.Controllers;
 
 public class TareaController : Controller
 {
-
     private readonly ILogger<TareaController> _logger;
 
     private readonly ITareaRepository tareaRepository;
 
-    public TareaController(ILogger<TareaController> logger)
+    public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository)
     {
         _logger = logger;
-        tareaRepository = new TareaRepository();
+        this.tareaRepository = tareaRepository;
     }
 
     public IActionResult Index()
