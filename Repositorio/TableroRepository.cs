@@ -1,7 +1,8 @@
 using System.Data.SqlClient;
 using System.Data.SQLite;
-using EspacioITableroRepository;
+//using EspacioITableroRepository;
 using tl2_tp10_2023_SofiaaCruz.Models;
+namespace tl2_tp10_2023_SofiaaCruz.Repositorio;
 
 public class TableroRepository : ITableroRepository
 {

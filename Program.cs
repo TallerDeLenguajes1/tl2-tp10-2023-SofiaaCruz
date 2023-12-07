@@ -1,7 +1,4 @@
-
-using EspacioITableroRepository;
-using EspacioITareaRepository;
-using EspacioIUsuarioRepository;
+using tl2_tp10_2023_SofiaaCruz.Repositorio;
 
 var builder = WebApplication.CreateBuilder(args);
 

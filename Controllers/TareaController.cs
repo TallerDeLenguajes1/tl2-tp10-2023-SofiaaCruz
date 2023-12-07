@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using EspacioITareaRepository;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_SofiaaCruz.Models;
 using tl2_tp10_2023_SofiaaCruz.ViewModels;
+using tl2_tp10_2023_SofiaaCruz.Repositorio;
 
 namespace tl2_tp10_2023_SofiaaCruz.Controllers;
 

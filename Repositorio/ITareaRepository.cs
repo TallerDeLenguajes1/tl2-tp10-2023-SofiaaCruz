@@ -1,7 +1,4 @@
-using tl2_tp10_2023_SofiaaCruz.Models;
-
-
-namespace EspacioITareaRepository;
+namespace tl2_tp10_2023_SofiaaCruz.Repositorio;
 
 public interface ITareaRepository
 {

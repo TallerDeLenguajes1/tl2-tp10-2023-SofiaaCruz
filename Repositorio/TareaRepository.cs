@@ -1,6 +1,7 @@
 using System.Data.SQLite;
-using EspacioITareaRepository;
+//using EspacioITareaRepository;
 using tl2_tp10_2023_SofiaaCruz.Models;
+namespace tl2_tp10_2023_SofiaaCruz.Repositorio;
 
 
 public class TareaRepository : ITareaRepository

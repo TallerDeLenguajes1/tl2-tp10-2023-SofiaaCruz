@@ -1,6 +1,6 @@
 using tl2_tp10_2023_SofiaaCruz.Models;
 using tl2_tp10_2023_SofiaaCruz.ViewModels;
-namespace EspacioIUsuarioRepository;
+namespace tl2_tp10_2023_SofiaaCruz.Repositorio;
 
 public interface IUsuarioRepository
 {
