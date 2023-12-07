@@ -48,7 +48,7 @@ public class TableroController : Controller
     [HttpPost]
     public IActionResult Update(UpdateTableroViewModel tablero)
     {
-        if(!ModelState.IsValid) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        if(!ModelState.IsValid) return RedirectToAction("Update");
         var tableroAModificar = tableroRepository.GetAllTableros().FirstOrDefault(t => t.Id == tablero.Id);
         tableroAModificar.Nombre = tablero.Nombre;
         tableroAModificar.Descripcion = tablero.Descripcion;
@@ -76,16 +76,16 @@ public class TableroController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public IActionResult Crear()
     {
         if(!EsAdmin()) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
         return View(new CrearTableroViewModel());
     }
 
     [HttpPost]
-    public IActionResult Create(CrearTableroViewModel tablero)
+    public IActionResult Crear(CrearTableroViewModel tablero)
     {
-        if(!ModelState.IsValid) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        if(!ModelState.IsValid) return RedirectToAction("Crear");
         var nuevoTablero = new Tablero()
         {
             Id = tablero.Id,

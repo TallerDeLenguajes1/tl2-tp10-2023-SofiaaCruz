@@ -68,16 +68,16 @@ public class UsuarioController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public IActionResult Crear()
     {
         //if(!EsAdmin()) return RedirectToAction("Index");
         return View(new CrearUsuarioViewModel());
     }
 
     [HttpPost]
-    public IActionResult Create(CrearUsuarioViewModel usuario)
+    public IActionResult Crear(CrearUsuarioViewModel usuario)
     {
-        if(!ModelState.IsValid) return RedirectToAction("Create");
+        if(!ModelState.IsValid) return RedirectToAction("Crear");
         var nuevoUsuario = new Usuario()
         {
             NombreUsuario = usuario.NombreUsuario,

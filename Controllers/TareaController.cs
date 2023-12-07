@@ -50,7 +50,7 @@ public class TareaController : Controller
     [HttpPost]
     public IActionResult Update(UpdateTareaViewModel tarea)
     {
-        if(!ModelState.IsValid) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        if(!ModelState.IsValid) return RedirectToAction("Update");
         var tareaAModificar = tareaRepository.GetAll().FirstOrDefault(t => t.Id == tarea.Id);
         tareaAModificar.Nombre = tarea.Nombre;
         tareaAModificar.Estado = tarea.Estado;
@@ -79,16 +79,16 @@ public class TareaController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public IActionResult Crear()
     {
         if(!EsAdmin()) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
         return View(new CrearTareaViewModel());
     }
 
     [HttpPost]
-    public IActionResult Create(CrearTareaViewModel tarea)
+    public IActionResult Crear(CrearTareaViewModel tarea)
     {
-        if(!ModelState.IsValid) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        if(!ModelState.IsValid) return RedirectToAction("Crear");
         var nuevaTarea = new Tarea()
         {
             IdTablero = tarea.IdTablero,
