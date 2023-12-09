@@ -153,4 +153,33 @@ public class UsuarioRepository : IUsuarioRepository
         }
         return filasAfectadas;
     }
+
+    public Usuario BuscarCuenta(string nombre, string password)
+    {
+        Usuario usuario = new Usuario();
+        using(SQLiteConnection connection = new SQLiteConnection(CadenaDeConexion))
+        {
+                connection.Open();
+                using SQLiteCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM Usuario WHERE nombre_de_usuario = @nombre AND password = @password";
+                command.Parameters.Add(new SQLiteParameter("@nombre", nombre));
+                command.Parameters.Add(new SQLiteParameter("@password", password));
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    if(reader.Read())
+                    {
+                        usuario.Id = Convert.ToInt32(reader["id"]);
+                        usuario.NombreUsuario = reader["nombre_de_usuario"].ToString();
+                        usuario.Rol = (Roles)Convert.ToInt32(reader["rol"]);
+                        usuario.Password = reader["password"].ToString();
+                    }
+                    else
+                    {
+                        throw new Exception ("Usuario no existente");
+                    }
+                }
+                connection.Close();
+        }
+        return usuario;
+    }
 }

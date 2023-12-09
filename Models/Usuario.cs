@@ -13,5 +13,4 @@ public class Usuario
     public string NombreUsuario { get => nombreUsuario; set => nombreUsuario = value; }
     public Roles Rol { get => rol; set => rol = value; }
     public string Password { get => password; set => password = value; }
-
 }

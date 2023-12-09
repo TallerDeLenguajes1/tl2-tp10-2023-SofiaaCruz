@@ -1,6 +1,14 @@
 @using tl2_tp10_2023_SofiaaCruz.ViewModels;
 @model LoginViewModel
 
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
 <section class ="login">
     <form asp-controller="Login" asp-action="Login" method="post">
     <div class="form-group">

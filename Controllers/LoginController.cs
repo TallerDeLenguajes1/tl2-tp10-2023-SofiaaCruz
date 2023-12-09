@@ -27,16 +27,27 @@ public class LoginController : Controller
     [HttpPost]
     public IActionResult Login(LoginViewModel usuario)
     {
-        var usuarioLog = usuarioRepository.GetAll().FirstOrDefault(u => u.NombreUsuario == usuario.NombreUsuario && u.Password == usuario.Password);
-        if(usuarioLog == null) return RedirectToAction("Index");
-        logearUsuario(usuarioLog);
-        return RedirectToRoute(new {controller = "Usuario", action = "Index"});
+        try 
+        {
+            if(!ModelState.IsValid) return RedirectToAction("Index");
+            var usuarioLog = usuarioRepository.BuscarCuenta(usuario.NombreUsuario, usuario.Password);
+            logearUsuario(usuarioLog);
+            _logger.LogInformation("El usuario " + usuarioLog.NombreUsuario + " ingreso correctamente");
+            return RedirectToRoute(new {controller = "Usuario", action = "Index"});
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+
+            _logger.LogWarning("Intento de acceso invalido - Usuario: " + usuario.NombreUsuario + " Clave ingresada: " + usuario.Password);
+            TempData["ErrorMessage"] = "Nombre de usuario o contraseña incorrectos.";
+            return RedirectToAction("Index");
+        }
     }
 
     private void logearUsuario(Usuario usuario)
     {
         HttpContext.Session.SetString("Id", usuario.Id.ToString());
-        var idUsuario = HttpContext.Session.GetString("Id");
         //Debug.WriteLine($"Valor de IdUsuario en Sesión: {idUsuario}");
         HttpContext.Session.SetString("NombreUsuario",usuario.NombreUsuario);
         HttpContext.Session.SetString("Password",usuario.Password);
