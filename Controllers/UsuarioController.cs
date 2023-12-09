@@ -41,12 +41,22 @@ public class UsuarioController : Controller
     public IActionResult Update(UpdateUsuarioViewmodel usuario)
     {
         if(!ModelState.IsValid) return RedirectToAction("Update");
-        var UsuarioAModificar = usuarioRepository.GetAll().FirstOrDefault(u => u.Id == usuario.Id);
-        if(UsuarioAModificar == null) return RedirectToAction("Index");
-        UsuarioAModificar.NombreUsuario = usuario.NombreUsuario;
-        UsuarioAModificar.Password = usuario.Password;
-        Debug.WriteLine(UsuarioAModificar.Password);
-        usuarioRepository.ModificarUsuario(UsuarioAModificar.Id, UsuarioAModificar);
+        try
+        {
+            var UsuarioAModificar = usuarioRepository.GetAll().FirstOrDefault(u => u.Id == usuario.Id);
+            if(UsuarioAModificar == null) return RedirectToAction("Index");
+            UsuarioAModificar.NombreUsuario = usuario.NombreUsuario;
+            UsuarioAModificar.Password = usuario.Password;
+            //Debug.WriteLine(UsuarioAModificar.Password);
+            usuarioRepository.ModificarUsuario(UsuarioAModificar.Id, UsuarioAModificar);
+            _logger.LogInformation("El Usuario " + UsuarioAModificar.NombreUsuario + " Fue modificado correctamente");
+            TempData["ErrorMessage"] = "El usuario fue modificado correctamente.";
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            TempData["ErrorMessage"] = "Hubo un error al modificar el usuario.";
+        }
         return RedirectToAction("Index");
     }
 
@@ -58,11 +68,18 @@ public class UsuarioController : Controller
     }
     public IActionResult DeleteConfirmed(DeleteUsuarioViewModel usuario)
     {
-        if(ModelState.IsValid)
+        if(!ModelState.IsValid) return Redirect("Index");
+        try
         {
-            var UsuarioAEliminar = usuarioRepository.GetAll().FirstOrDefault(u => u.Id == usuario.Id);
-            int result = usuarioRepository.Delete(UsuarioAEliminar.Id);
-            if(result == 0) BadRequest();
+            var UsuarioAEliminar = usuarioRepository.GetAll().FirstOrDefault(u => u.Id == usuario.Id); 
+            usuarioRepository.Delete(UsuarioAEliminar.Id);
+            _logger.LogInformation("El Usuario " + UsuarioAEliminar.NombreUsuario + " fue eliminado correctamente");
+            TempData["ErrorMessage"] = "El usuario " + UsuarioAEliminar.NombreUsuario + " fue eliminado correctamente.";
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            TempData["ErrorMessage"] = "Hubo un error al eliminar el usuario.";
         }
         return RedirectToAction("Index");
     }
@@ -77,14 +94,23 @@ public class UsuarioController : Controller
     [HttpPost]
     public IActionResult Crear(CrearUsuarioViewModel usuario)
     {
-        if(!ModelState.IsValid) return RedirectToAction("Crear");
-        var nuevoUsuario = new Usuario()
+        try
         {
-            NombreUsuario = usuario.NombreUsuario,
-            Rol = usuario.Rol,
-            Password = usuario.Password,
-        };
-        usuarioRepository.NuevoUsuario(nuevoUsuario);
+            if(!ModelState.IsValid) return RedirectToAction("Crear");
+            var nuevoUsuario = new Usuario()
+            {
+                NombreUsuario = usuario.NombreUsuario,
+                Rol = usuario.Rol,
+                Password = usuario.Password,
+            };
+            usuarioRepository.NuevoUsuario(nuevoUsuario);
+            _logger.LogInformation("El Usuario: " + nuevoUsuario.NombreUsuario + " Clave: " + nuevoUsuario.Password + " fue creado correctamente");
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            TempData["ErrorMessage"] = "Hubo un error al crear el usuario.";
+        }
         return RedirectToAction("Index");
     }
 

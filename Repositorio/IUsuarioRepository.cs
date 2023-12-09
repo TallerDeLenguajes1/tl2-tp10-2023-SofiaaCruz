@@ -8,6 +8,6 @@ public interface IUsuarioRepository
     public void ModificarUsuario(int id, Usuario usuario);
     public List<Usuario> GetAll();
     public Usuario GetById(int id);
-    public int Delete(int id);
+    public void Delete(int id);
     public Usuario BuscarCuenta(string nombre, string password);
 }

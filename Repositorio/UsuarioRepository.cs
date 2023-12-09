@@ -108,12 +108,16 @@ public class UsuarioRepository : IUsuarioRepository
                 command.Parameters.Add(new SQLiteParameter("@idUsuario", id));
                 using (SQLiteDataReader reader = command.ExecuteReader())
                 {
-                    while(reader.Read())
+                    if(reader.Read())
                     {
                         usuario.Id = id;
                         usuario.NombreUsuario = reader["nombre_de_usuario"].ToString();
                         usuario.Rol = (Roles)Convert.ToInt32(reader["rol"]);
                         usuario.Password = reader["password"].ToString();
+                    }
+                    else
+                    {
+                        throw new Exception("Usuario no existente");
                     }
                 }
             }
@@ -129,7 +133,7 @@ public class UsuarioRepository : IUsuarioRepository
         return usuario;
     }
 
-    public int Delete(int id)
+    public void Delete(int id)
     {
         int filasAfectadas=0;
         using (SQLiteConnection connection = new SQLiteConnection(CadenaDeConexion))
@@ -141,6 +145,10 @@ public class UsuarioRepository : IUsuarioRepository
                 command.CommandText = "DELETE FROM Usuario WHERE id = @idUsuario";
                 command.Parameters.Add(new SQLiteParameter("@idUsuario", id));
                 filasAfectadas = command.ExecuteNonQuery();//metodo que devuelve un entero que representa la cantidad de filas afectadas.
+                if(filasAfectadas == 0)
+                {
+                    throw new Exception ("No se encontro el usuario a eliminar");
+                }
             }
             catch (Exception ex)
             {
@@ -151,7 +159,6 @@ public class UsuarioRepository : IUsuarioRepository
                 connection.Close();
             }    
         }
-        return filasAfectadas;
     }
 
     public Usuario BuscarCuenta(string nombre, string password)

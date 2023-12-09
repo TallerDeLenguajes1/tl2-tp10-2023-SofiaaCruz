@@ -4,6 +4,13 @@
 }
 @model GetUsuarioViewModel
 
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <div class="text-center">
     <h1 class="display-4">Control de Usuarios</h1>
     <p>Bienvenido, @ViewBag.Nombre</p>

@@ -11,7 +11,7 @@ public class CrearUsuarioViewModel
     public string NombreUsuario {get; set;}
 
     [Required(ErrorMessage = "Este campo es requerido")]
-    [StringLength(8)]
+    [StringLength(16,MinimumLength = 8)]
     [Display(Name ="Contraseña")]
     public string Password {get; set;}
 
