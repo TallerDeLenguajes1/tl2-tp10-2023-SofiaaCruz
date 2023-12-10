@@ -120,7 +120,7 @@ public class TareaController : Controller
             _logger.LogError(ex.ToString());
             TempData["ErrorMessage"] = "Hubo un error al crear la tarea.";
         }
-        return RedirectToRoute("Index");
+        return RedirectToAction("Index");
     } 
 
     private bool EsAdmin()

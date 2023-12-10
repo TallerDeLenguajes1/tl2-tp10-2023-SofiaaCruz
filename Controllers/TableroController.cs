@@ -117,7 +117,7 @@ public class TableroController : Controller
             _logger.LogError(ex.ToString());
             _logger.LogWarning("No se pudo crear el tablero");
         }
-        return RedirectToRoute("Index");
+        return RedirectToAction("Index");
     }
 
     private bool EsAdmin()
