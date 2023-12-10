@@ -4,7 +4,12 @@ namespace tl2_tp10_2023_SofiaaCruz.Repositorio;
 
 public class UsuarioRepository : IUsuarioRepository
 {
-   private string CadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared"; //Cadena de conexión a la base de datos
+   private string CadenaDeConexion;
+
+   public UsuarioRepository(string cadenaDeConexion)
+   {
+        CadenaDeConexion = cadenaDeConexion;
+   }
     public void NuevoUsuario(Usuario usuario)
     {
         var query = "Insert Into Usuario (nombre_de_usuario,rol, password) VALUES (@nombre_de_usuario, @rol, @password)"; //Definición de la consulta SQL para insertar un nuevo usuario

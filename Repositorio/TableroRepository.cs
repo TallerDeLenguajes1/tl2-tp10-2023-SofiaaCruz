@@ -6,7 +6,11 @@ namespace tl2_tp10_2023_SofiaaCruz.Repositorio;
 
 public class TableroRepository : ITableroRepository
 {
-     private string CadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared";
+     private string CadenaDeConexion;
+     public TableroRepository(string cadenaDeConexion)
+   {
+        CadenaDeConexion = cadenaDeConexion;
+   }
     public Tablero CrearTablero(Tablero tablero)
     {
         using (SQLiteConnection connection = new SQLiteConnection(CadenaDeConexion))

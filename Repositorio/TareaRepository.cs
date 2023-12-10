@@ -7,7 +7,11 @@ namespace tl2_tp10_2023_SofiaaCruz.Repositorio;
 public class TareaRepository : ITareaRepository
 {
 
-    private string CadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared";
+    private string CadenaDeConexion;
+    public TareaRepository(string cadenaDeConexion)
+   {
+        CadenaDeConexion = cadenaDeConexion;
+   }
     public int AsignarTarea(int idUsuario, int idTarea)
     {
         int filasAfectadas = 0;

@@ -6,6 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDistributedMemoryCache();
+
+var CadenaDeConexion = builder.Configuration.GetConnectionString("SqliteConexion")!;
+builder.Services.AddSingleton<string>(CadenaDeConexion);
+
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<ITareaRepository, TareaRepository>();
+builder.Services.AddScoped<ITableroRepository, TableroRepository>();
+
  builder.Services.AddSession(options =>
  {
  options.IdleTimeout = TimeSpan.FromSeconds(500000);
@@ -13,9 +21,6 @@ builder.Services.AddDistributedMemoryCache();
  options.Cookie.IsEssential = true;
  });
 
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddScoped<ITareaRepository, TareaRepository>();
-builder.Services.AddScoped<ITableroRepository, TableroRepository>();
 
 
 var app = builder.Build();
