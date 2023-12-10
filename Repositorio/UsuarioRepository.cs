@@ -182,7 +182,7 @@ public class UsuarioRepository : IUsuarioRepository
                     }
                     else
                     {
-                        throw new Exception ("Usuario no existente");
+                        throw new Exception ("El usuario no existente");
                     }
                 }
                 connection.Close();

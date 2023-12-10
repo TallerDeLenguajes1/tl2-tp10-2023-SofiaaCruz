@@ -199,7 +199,7 @@ public class TareaRepository : ITareaRepository
                 command.Parameters.Add(new SQLiteParameter("@id", id));
                 using (SQLiteDataReader reader = command.ExecuteReader())
                 {
-                    while(reader.Read())
+                    if(reader.Read())
                     {
                         tarea.Id = Convert.ToInt32(reader["id"]);
                         tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
@@ -208,6 +208,10 @@ public class TareaRepository : ITareaRepository
                         tarea.Descripcion = reader["descripcion"].ToString();
                         tarea.Color = reader["color"].ToString();
                         tarea.IdUsuarioAsignado = Convert.ToInt32(reader["id_usuario_asignado"]);
+                    }
+                    else
+                    {
+                        throw new Exception ("La tarea no existe");
                     }
                 }
             }

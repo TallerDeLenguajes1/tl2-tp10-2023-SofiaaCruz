@@ -50,12 +50,18 @@ public class TareaController : Controller
     public IActionResult Update(UpdateTareaViewModel tarea)
     {
         if(!ModelState.IsValid) return RedirectToAction("Update");
-        var tareaAModificar = tareaRepository.GetAll().FirstOrDefault(t => t.Id == tarea.Id);
-        tareaAModificar.Nombre = tarea.Nombre;
-        tareaAModificar.Estado = tarea.Estado;
-        tareaAModificar.Descripcion = tarea.Descripcion;
-        tareaAModificar.Color = tarea.Color;
-        tareaRepository.ModificarTarea(tareaAModificar.Id, tareaAModificar);
+        try
+        {
+            var tareaAModificar = tareaRepository.GetTareaById(tarea.Id);
+            tareaAModificar.ActualizarDatos(tarea);
+            tareaRepository.ModificarTarea(tareaAModificar.Id, tareaAModificar);
+            _logger.LogInformation("La tarea: "+tareaAModificar.Nombre +  "Fue modificada con éxito");
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            _logger.LogWarning("No se pudo modificar la tarea");
+        }
         return RedirectToAction("Index");
     }
 
@@ -68,13 +74,20 @@ public class TareaController : Controller
 
     public IActionResult DeleteConfirmed(DeleteTareaViewModel tarea)
     {
-        if(ModelState.IsValid)
+        if(!ModelState.IsValid) return RedirectToAction("Index");
+        try
         {
-            var tareaAEliminar = tareaRepository.GetAll().FirstOrDefault(t => t.Id == tarea.Id);
+            var tareaAEliminar = tareaRepository.GetTareaById(tarea.Id);
             int result = tareaRepository.Delete(tareaAEliminar.Id);
             if(result == 0) BadRequest();
         }
-        return RedirectToRoute(new {Controller = "Usuario", Action = "Index"}); 
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            _logger.LogWarning("No se pudo eliminar la tarea");
+
+        }
+        return RedirectToAction("Index"); 
     }
 
     [HttpGet]
@@ -88,17 +101,26 @@ public class TareaController : Controller
     public IActionResult Crear(CrearTareaViewModel tarea)
     {
         if(!ModelState.IsValid) return RedirectToAction("Crear");
-        var nuevaTarea = new Tarea()
+        try
         {
-            IdTablero = tarea.IdTablero,
-            Nombre = tarea.Nombre,
-            Estado = tarea.Estado,
-            Descripcion = tarea.Descripcion,
-            Color = tarea.Color,
-            IdUsuarioAsignado = tarea.IdUsuarioAsignado
-        };
-        tareaRepository.CrearTarea(nuevaTarea);
-        return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+            var nuevaTarea = new Tarea()
+            {
+                IdTablero = tarea.IdTablero,
+                Nombre = tarea.Nombre,
+                Estado = tarea.Estado,
+                Descripcion = tarea.Descripcion,
+                Color = tarea.Color,
+                IdUsuarioAsignado = tarea.IdUsuarioAsignado
+            };
+            tareaRepository.CrearTarea(nuevaTarea);
+            _logger.LogInformation("La tarea fue creada de forma correcta.");
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            TempData["ErrorMessage"] = "Hubo un error al crear la tarea.";
+        }
+        return RedirectToRoute("Index");
     } 
 
     private bool EsAdmin()

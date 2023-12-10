@@ -1,4 +1,5 @@
 using tl2_tp10_2023_SofiaaCruz.Models;
+using tl2_tp10_2023_SofiaaCruz.ViewModels;
 
 public enum Estados {Ideas, ToDo, Doing, Review, Done}
 public class Tarea
@@ -18,4 +19,13 @@ public class Tarea
     public string? Descripcion { get => descripcion; set => descripcion = value; }
     public string? Color { get => color; set => color = value; }
     public int IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
+
+    public void ActualizarDatos(UpdateTareaViewModel tarea)
+    {
+        Nombre = tarea.Nombre;
+        Estado = tarea.Estado;
+        Descripcion = tarea.Descripcion;
+        Color = tarea.Color;
+    }
+
 }
