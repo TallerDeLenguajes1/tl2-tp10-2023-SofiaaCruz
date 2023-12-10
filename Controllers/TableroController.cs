@@ -49,10 +49,18 @@ public class TableroController : Controller
     public IActionResult Update(UpdateTableroViewModel tablero)
     {
         if(!ModelState.IsValid) return RedirectToAction("Update");
-        var tableroAModificar = tableroRepository.GetAllTableros().FirstOrDefault(t => t.Id == tablero.Id);
-        tableroAModificar.Nombre = tablero.Nombre;
-        tableroAModificar.Descripcion = tablero.Descripcion;
-        tableroRepository.ModificarTablero(tableroAModificar.Id, tableroAModificar);
+        try
+        {
+            var tableroAModificar = tableroRepository.GetById(tablero.Id);
+            tableroAModificar.ActualizarDatos(tablero);
+            tableroRepository.ModificarTablero(tableroAModificar.Id, tableroAModificar);
+            _logger.LogInformation("El tablero fue modificado correctamente");
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            _logger.LogWarning("El tablero no pudo ser modificado");
+        }
         return RedirectToAction("Index");
     }
 
@@ -65,14 +73,19 @@ public class TableroController : Controller
 
     public IActionResult DeleteConfirmed(DeleteTableroViewModel tablero)
     {
-        if(ModelState.IsValid)
+        if(!ModelState.IsValid) return RedirectToAction ( "Index"); 
+        try
         {
             var tareaAEliminar = tableroRepository.GetAllTableros().FirstOrDefault(t => t.Id == tablero.Id);
-            int result = tableroRepository
-            .Delete(tareaAEliminar.Id);
-            if(result == 0) BadRequest();
+            tableroRepository.Delete(tareaAEliminar.Id);
+            _logger.LogInformation("El tablero se elimino de forma correcta");
         }
-        return RedirectToRoute(new {Controller = "Usuario", Action = "Index"}); 
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            _logger.LogWarning("No se pudo eliminar el tablero");
+        }
+        return RedirectToAction("Index");
     }
 
     [HttpGet]
@@ -85,15 +98,25 @@ public class TableroController : Controller
     [HttpPost]
     public IActionResult Crear(CrearTableroViewModel tablero)
     {
-        if(!ModelState.IsValid) return RedirectToAction("Crear");
-        var nuevoTablero = new Tablero()
+        if(!ModelState.IsValid) return RedirectToRoute(new {Controller = "Usuario", Action = "Index"});
+        try
         {
-            Id = tablero.Id,
-            IdUsuarioPropietario = tablero.IdUsuarioPropietario,
-            Nombre = tablero.Nombre,
-            Descripcion = tablero.Descripcion
-        };
-        tableroRepository.CrearTablero(nuevoTablero);
+            var nuevoTablero = new Tablero()
+            {
+                Id = tablero.Id,
+                IdUsuarioPropietario = tablero.IdUsuarioPropietario,
+                Nombre = tablero.Nombre,
+                Descripcion = tablero.Descripcion
+            };
+            tableroRepository.CrearTablero(nuevoTablero);
+            _logger.LogInformation("El tablero fue creado de forma correcta");
+
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex.ToString());
+            _logger.LogWarning("No se pudo crear el tablero");
+        }
         return RedirectToRoute("Index");
     }
 

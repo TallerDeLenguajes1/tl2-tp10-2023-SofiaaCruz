@@ -154,7 +154,10 @@ public class TableroRepository : ITableroRepository
             command.Parameters.Add(new SQLiteParameter("@id", id));
             command.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
             command.Parameters.Add(new SQLiteParameter("@descripcion", tablero.Descripcion));
-            command.ExecuteNonQuery();
+            if(command.ExecuteNonQuery() == 0)
+            {
+                throw new Exception ("No se pudo realizar la modiificación");
+            }
         }
         catch(Exception ex)
         {
@@ -167,7 +170,7 @@ public class TableroRepository : ITableroRepository
        }
     }
 
-    public int Delete(int id)
+    public void Delete(int id)
     {
         int filasAfectadas = 0;
         using (SQLiteConnection connection = new SQLiteConnection(CadenaDeConexion))
@@ -179,6 +182,10 @@ public class TableroRepository : ITableroRepository
                 command.CommandText = "DELETE  FROM Tablero WHERE id = @id";
                 command.Parameters.Add(new SQLiteParameter("@id", id));
                 filasAfectadas = command.ExecuteNonQuery();
+                if(filasAfectadas == 0)
+                {
+                    throw new Exception ("No se pudo eliminar el tablero");
+                }
             }
             catch(Exception ex)
             {
@@ -189,6 +196,5 @@ public class TableroRepository : ITableroRepository
                 connection.Close();
             }
         }
-        return filasAfectadas;
     }
 }

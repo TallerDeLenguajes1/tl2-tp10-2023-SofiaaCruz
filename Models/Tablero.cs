@@ -1,4 +1,5 @@
 using tl2_tp10_2023_SofiaaCruz.Models;
+using tl2_tp10_2023_SofiaaCruz.ViewModels;
 
 public class Tablero
 {
@@ -11,4 +12,10 @@ public class Tablero
     public int IdUsuarioPropietario { get => idUsuarioPropietario; set => idUsuarioPropietario = value; }
     public string Nombre { get => nombre; set => nombre = value; }
     public string Descripcion { get => descripcion; set => descripcion = value; }
+
+    public void ActualizarDatos(UpdateTableroViewModel t)
+    {
+        Nombre = t.Nombre;
+        Descripcion = t.Descripcion;
+    }
 }

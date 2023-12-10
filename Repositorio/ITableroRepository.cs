@@ -8,5 +8,5 @@ public interface ITableroRepository
     public Tablero GetById(int id);
     public List<Tablero> GetAllTableros();
     public List<Tablero> GetAllTablerosUsuario(int id);
-    public int Delete(int id);
+    public void Delete(int id);
 }
